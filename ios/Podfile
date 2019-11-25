@@ -36,6 +36,8 @@ target 'ReactNativeNewsApp' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+
+
   target 'ReactNativeNewsAppTests' do
     inherit! :search_paths
     # Pods for testing
