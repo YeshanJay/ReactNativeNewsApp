@@ -1,4 +1,4 @@
-package com.reactnativenewsapp;
+package com.yj.test.newsapp;
 
 import android.app.Application;
 
