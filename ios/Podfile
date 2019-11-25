@@ -6,7 +6,35 @@ target 'ReactNativeNewsApp' do
   use_frameworks!
 
   # Pods for ReactNativeNewsApp
+   pod 'React', :path => '../node_modules/react-native', :subspecs => [
+   'Core',
+   'CxxBridge', # Include this for RN >= 0.47
+   'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+   'RCTText',
+   'RCTNetwork',
+   'RCTWebSocket', # Needed for debugging
+   'RCTAnimation', # Needed for FlatList and animations running on native UI thread
+   'RCTCameraRoll',
+   'RCTPushNotification',
+   'RCTImage',
+  
+   'RCTBlob',
+   'RCTActionSheet',
+   'RCTGeolocation',
+   'RCTVibration',
+   'RCTSettings',
+   'RCTLinkingIOS',
+   # Add any other subspecs you want to use in your project
+   # Remove any subspecs you don't want to use in your project
+   ]
+   #, :modular_headers => true
+  
+   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  
 
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   target 'ReactNativeNewsAppTests' do
     inherit! :search_paths
