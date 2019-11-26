@@ -1,4 +1,18 @@
+import { NEWS_CATEGORY_ENUM } from "../../../enums/news.enum";
 
+
+export interface TopHeadlineNewsParams {
+    country?: string;
+    category?: NEWS_CATEGORY_ENUM;
+    pageSize?: number;
+    page?: number;
+}
+
+export interface AllNewsParams {
+    sortBy?: string;
+    pageSize?: number;
+    page?: number;
+}
 
 
 export interface NewsArticleDTD {
