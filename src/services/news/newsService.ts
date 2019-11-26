@@ -1,7 +1,5 @@
 import { APIHelper } from "../apiHelper";
 import { ServiceUrls } from "../../constants/serviceUrls";
-import { UserLogin } from "../../models/userLogin";
-import { UserAuthRequestDTD, UserAuthResponseDTD } from "./dtd/userAuth.dtd";
 import { AxiosError } from "axios";
 import { NewsResponseDTD, NewsErrorResponseDTD } from "./dtd/news.dtd";
 
