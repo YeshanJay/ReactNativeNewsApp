@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
-import { PagerTabIndicator, IndicatorViewPager } from 'rn-advanced-viewpager';
 
 
 type Props = {};
 
-export default class HomePage extends Component<Props> {
+export default class AllNewsTab extends Component<Props> {
 
+    static navigationOptions({ navigation }) {
+
+        return {
+            title: "ALL Title"
+        };
+    }
 
     constructor(props) {
         super(props);
@@ -18,7 +23,7 @@ export default class HomePage extends Component<Props> {
         return (
             <SafeAreaView style={styles.constainer}>
 
-
+            <Text>All News</Text>
 
             </SafeAreaView>
         );
