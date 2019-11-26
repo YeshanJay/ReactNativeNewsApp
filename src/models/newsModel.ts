@@ -1,4 +1,5 @@
 import { NewsArticleDTD } from "../services/news/dtd/news.dtd";
+import moment from "moment";
 
 export class NewsModel {
 
@@ -10,7 +11,7 @@ export class NewsModel {
     /**
      * FORMAT: 2019-11-26T10:12:00Z
      */
-    publishedAt: Date;
+    publishedAt: Date = null;
     content: string;
 
     constructor() {
@@ -18,7 +19,17 @@ export class NewsModel {
     }
 
     updateFromJson(data: NewsArticleDTD) {
-        
+        this.author = data.author;
+        this.title = data.title;
+        this.description = data.description;
+        this.url = data.url;
+        this.urlToImage = data.urlToImage;
+        this.content = data.content;
+
+        if (data.publishedAt) {
+            this.publishedAt = moment(data.publishedAt).toDate();
+        }
+
     }
 
 }

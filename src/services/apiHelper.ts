@@ -2,7 +2,7 @@
 import Axios, { AxiosInstance } from "axios";
 import { ServiceUrls } from "../constants/serviceUrls";
 import { UserLogin } from "../models/userLogin";
-import AxiosLogger from 'axios-logger';
+import * as AxiosLogger from 'axios-logger';
 
 
 export class APIHelper {
