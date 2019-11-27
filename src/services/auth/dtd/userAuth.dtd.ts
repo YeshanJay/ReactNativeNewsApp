@@ -14,4 +14,5 @@ export interface UserAuthResponseDTD {
     email: string;
     firstName: string;
     lastName: string;
+    profileImage: string;
 }

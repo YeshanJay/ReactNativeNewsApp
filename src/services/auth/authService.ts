@@ -25,7 +25,7 @@ export class AuthService {
 
         return new Promise((resolve, reject) => {
 
-            // TODO: Fake login.
+            // TODO: Fake login with mock data.
             setTimeout(() => {
 
                 const data: UserAuthResponseDTD = {
@@ -35,7 +35,8 @@ export class AuthService {
                     displayName: "Yeshan Jay",
                     firstName: "Yeshan",
                     lastName: "Jayasinghe",
-                    email: "test@gmail.com"
+                    email: "test@gmail.com",
+                    profileImage: "https://img.freepik.com/free-vector/businessman-profile-cartoon_18591-58479.jpg?size=338&ext=jpg"
                 };
 
                 const userLogin = UserLogin.createByAuth(data);

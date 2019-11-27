@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, Image } from "react-native";
+import { UserLogin } from "../models/userLogin";
 
 
 type Props = {};
@@ -17,7 +18,24 @@ export default class ProfileTab extends Component<Props> {
         return (
             <SafeAreaView style={styles.constainer}>
 
-            <Text>Profile</Text>
+                <Image
+                    style={{
+                        width: 180,
+                        height: 180,
+                        borderWidth: 1,
+                        borderColor: "#EEE",
+                        borderRadius: 90,
+                        marginTop: 30,
+                        alignSelf: "center"
+                    }}
+                    source={{
+                        uri: UserLogin.instance.profileImage,
+                        width: 180,
+                        height: 180
+                    }}
+                />
+
+                <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 20, alignSelf: "center" }}>{UserLogin.instance.displayName}</Text>
 
             </SafeAreaView>
         );

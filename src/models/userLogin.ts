@@ -15,6 +15,8 @@ export class UserLogin {
     private _displayName: string = null;
     private _firstName: string = null;
     private _lastName: string = null;
+
+    profileImage: string = null;
     
     private constructor() {
 
@@ -48,6 +50,7 @@ export class UserLogin {
             userLogin._displayName = authObj.displayName;
             userLogin._firstName = authObj.firstName;
             userLogin._lastName = authObj.lastName;
+            userLogin.profileImage = authObj.profileImage;
             
 
             return UserLogin._instance = userLogin;
