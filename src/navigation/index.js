@@ -7,6 +7,8 @@ import { Icon } from "react-native-elements";
 import TopHeadlineTab from "../tabs/topHeadlineTab";
 import AllNewsTab from "../tabs/allNewsTab";
 import ProfileTab from "../tabs/profileTab";
+import NewsDetailPage from "../pages/news/newsDetailPage";
+import { createFluidNavigator } from "react-navigation-fluid-transitions";
 
 
 
@@ -104,6 +106,9 @@ const AppNavigator = createSwitchNavigator(
                             title
                         };
                     }
+                },
+                NewsDetail: {
+                    screen: NewsDetailPage
                 }
             })
         },
@@ -113,7 +118,6 @@ const AppNavigator = createSwitchNavigator(
         initialRouteName: 'Auth',
     }
 )
-
 
 
 

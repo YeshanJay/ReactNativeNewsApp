@@ -58,7 +58,14 @@ export default class TopHeadlineTab extends Component<Props, StateDef> {
 
         return (
             <NewsListItem
+                index={index}
                 newsModel={item}
+                onPress={(model, index) => {
+                    this.props.navigation.navigate("NewsDetail", {
+                        newsModel: model,
+                        index
+                    });
+                }}
             ></NewsListItem>
         );
     }

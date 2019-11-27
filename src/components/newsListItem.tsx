@@ -1,15 +1,18 @@
 
 
 import React, { Component } from "react";
-import { View, StyleSheet, Text, SafeAreaView, FlatList, Image } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, FlatList, Image, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 import { NewsModel } from "../models/newsModel";
 import { Icon } from "react-native-elements";
 import Moment from 'react-moment';
+import { Transition } from 'react-navigation-fluid-transitions';
 
 
 type Props = {
+    index?: number;
     newsModel: NewsModel;
+    onPress: (model: NewsModel, index: number) => void;
 };
 
 type StateDef = {
@@ -22,11 +25,13 @@ type StateDef = {
 export default class NewsListItem extends Component<Props, StateDef> {
 
     static propTypes = {
-        newsModel: PropTypes.object.isRequired
+        newsModel: PropTypes.object.isRequired,
+        onPress: PropTypes.func
     };
 
     static defaultProps = {
-        newsModel: null
+        newsModel: null,
+        onPress: () => null
     };
 
 
@@ -43,16 +48,22 @@ export default class NewsListItem extends Component<Props, StateDef> {
     componentDidMount() {
     }
 
+    onPress_NewsItem() {
+        if (this.props.onPress) {
+            this.props.onPress(this.props.newsModel, this.props.index);
+        }
+    }
+
     render() {
         const { title, imgUrl } = this.state;
 
         return (
-            <View style={styles.constainer}>
+            <TouchableOpacity style={styles.constainer} onPress={this.onPress_NewsItem.bind(this)}>
                 <View style={{
                     flex: 1,
                     padding: 10
                 }}>
-                    <Text style={{ fontWeight: "bold", fontSize: 13  }} numberOfLines={2} ellipsizeMode="tail">{title}</Text>
+                    <Text style={{ fontWeight: "bold", fontSize: 13 }} numberOfLines={2} ellipsizeMode="tail">{title}</Text>
 
                     <View style={{ position: "absolute", bottom: 10, left: 10, flexDirection: "row", alignItems: "center" }}>
                         <Icon
@@ -82,7 +93,7 @@ export default class NewsListItem extends Component<Props, StateDef> {
                         height: 100
                     }}
                 />
-            </View>
+            </TouchableOpacity>
         );
     }
 
