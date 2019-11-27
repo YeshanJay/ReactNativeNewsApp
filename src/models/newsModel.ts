@@ -14,6 +14,8 @@ export class NewsModel {
     publishedAt: Date = null;
     content: string;
 
+    sourceName: string;
+
     constructor() {
 
     }
@@ -28,6 +30,10 @@ export class NewsModel {
 
         if (data.publishedAt) {
             this.publishedAt = moment(data.publishedAt).toDate();
+        }
+
+        if (data.source) {
+            this.sourceName = data.source.name;
         }
 
     }

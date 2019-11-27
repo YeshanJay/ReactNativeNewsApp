@@ -3,9 +3,12 @@ import { View, StyleSheet, Text, SafeAreaView, FlatList, TouchableOpacity } from
 import { NewsModel } from "../models/newsModel";
 import { NewsService } from "../services/news/newsService";
 import NewsListItem from "../components/newsListItem";
+import { NavigationInjectedProps } from "react-navigation";
 
 
-type Props = {};
+type Props = {
+
+} & NavigationInjectedProps;
 
 type StateDef = {
     isLoading: boolean;
@@ -98,13 +101,22 @@ export default class AllNewsTab extends Component<Props, StateDef> {
         this.loadNews();
     }
 
+    onPress_NewsItem(model: NewsModel, index: number) {
+        this.props.navigation.navigate("NewsDetail", {
+            newsModel: model,
+            index
+        });
+    }
+
 
 
     renderItem_News({ item, index }: { item: NewsModel; index: number; }) {
 
         return (
             <NewsListItem
+                index={index}
                 newsModel={item}
+                onPress={this.onPress_NewsItem.bind(this)}
             ></NewsListItem>
         );
     }

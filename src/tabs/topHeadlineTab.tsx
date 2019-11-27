@@ -3,9 +3,12 @@ import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import { NewsService } from "../services/news/newsService";
 import { NewsModel } from "../models/newsModel";
 import NewsListItem from "../components/newsListItem";
+import { NavigationInjectedProps } from "react-navigation";
 
 
-type Props = {};
+type Props = {
+
+} & NavigationInjectedProps;
 
 type StateDef = {
     isLoading: boolean;
@@ -29,9 +32,7 @@ export default class TopHeadlineTab extends Component<Props, StateDef> {
     }
 
     loadNews() {
-        this.setState({
-            isLoading: true
-        });
+        this.setState({ isLoading: true });
 
         NewsService.fetchTopHeadlinesModel(null, {
             country: "us"
@@ -44,14 +45,19 @@ export default class TopHeadlineTab extends Component<Props, StateDef> {
                 });
             })
             .catch((error) => {
-                this.setState({
-                    isLoading: false
-                });
+                this.setState({ isLoading: false });
 
                 alert(error);
             });
     }
+    
 
+    onPress_NewsItem(model: NewsModel, index: number) {
+        this.props.navigation.navigate("NewsDetail", {
+            newsModel: model,
+            index
+        });
+    }
 
 
     renderItem_News({ item, index }: { item: NewsModel; index: number; }) {
@@ -60,12 +66,7 @@ export default class TopHeadlineTab extends Component<Props, StateDef> {
             <NewsListItem
                 index={index}
                 newsModel={item}
-                onPress={(model, index) => {
-                    this.props.navigation.navigate("NewsDetail", {
-                        newsModel: model,
-                        index
-                    });
-                }}
+                onPress={this.onPress_NewsItem.bind(this)}
             ></NewsListItem>
         );
     }

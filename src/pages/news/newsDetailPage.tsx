@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Image, TouchableOpacity, Linking } from "react-native";
-import { NavigationInjectedProps } from "react-navigation";
+import { NavigationInjectedProps, ScrollView } from "react-navigation";
 import { NewsModel } from "../../models/newsModel";
 import { Icon } from "react-native-elements";
 import Moment from "react-moment";
@@ -14,7 +14,7 @@ type Props = {
 export default class NewsDetailPage extends Component<Props> {
 
     index = null;
-    newsModel = null;
+    newsModel: NewsModel = null;
 
     constructor(props: Props) {
         super(props);
@@ -23,69 +23,142 @@ export default class NewsDetailPage extends Component<Props> {
         this.newsModel = props.navigation.state.params.newsModel;
     }
 
+    async onPress_OpenLink() {
+        const newsModel = this.newsModel;
+
+        if (newsModel.url) {
+            try {
+                const canOpen = await Linking.canOpenURL(newsModel.url);
+                if (canOpen) {
+                    await Linking.openURL(newsModel.url);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+
+    renderImage() {
+        const newsModel = this.newsModel;
+
+        if (!newsModel.urlToImage) {
+            return null;
+        }
+
+        return (
+            <View style={{ flex: 1 }}>
+                <Image
+                    style={{
+                        flex: 1
+                    }}
+                    source={{
+                        uri: newsModel.urlToImage,
+                        // width: "100%",
+                        height: 200
+                    }}
+                    resizeMode="cover"
+                />
+            </View>
+        );
+    }
 
     render() {
         const newsModel = this.newsModel;
 
         return (
             <SafeAreaView style={styles.constainer}>
-                <View style={{ flex: 1 }}>
-                    <Image
-                        style={{
-                            flex: 1
-                        }}
-                        source={{
-                            uri: newsModel.urlToImage,
-                            width: "100%",
-                            height: 150
-                        }}
-                        resizeMode="cover"
-                    />
-                </View>
-                <View style={{ flex: 2 }}>
-                    <View>
-                        <Text>{newsModel.author}</Text>
+                <ScrollView style={{ flex: 1 }}>
 
-                        <View style={{ position: "absolute", bottom: 10, left: 10, flexDirection: "row", alignItems: "center" }}>
-                            <Icon
-                                name="clock-o"
-                                type="font-awesome"
-                                size={16}
-                                color="#757575"
-                            />
-                            <Moment
-                                date={newsModel.publishedAt}
-                                format="MMM DD, YYYY"
-                                element={Text}
-                                style={{
-                                    fontSize: 12,
-                                    marginLeft: 5
-                                }}
-                            ></Moment>
+                    {this.renderImage()}
+
+                    <View style={{ flex: 2 }}>
+                        <View style={{
+                            marginBottom: 40
+                        }}>
+                            <View style={{ position: "absolute", top: 10, left: 10, flexDirection: "row", alignItems: "center" }}>
+                                <Icon
+                                    name="user"
+                                    type="font-awesome"
+                                    size={16}
+                                    color="#757575"
+                                />
+                                <Text
+                                    style={{
+                                        fontSize: 12,
+                                        marginLeft: 5
+                                    }}
+                                >{newsModel.author}</Text>
+                            </View>
+
+                            <View style={{ position: "absolute", top: 10, right: 10, flexDirection: "row", alignItems: "center" }}>
+                                <Icon
+                                    name="clock-o"
+                                    type="font-awesome"
+                                    size={16}
+                                    color="#757575"
+                                />
+                                <Moment
+                                    date={newsModel.publishedAt}
+                                    format="MMM DD, YYYY"
+                                    element={Text}
+                                    style={{
+                                        fontSize: 12,
+                                        marginLeft: 5
+                                    }}
+                                ></Moment>
+                            </View>
+                        </View>
+
+                        <View style={{
+                            padding: 10
+                        }}>
+                            <Text style={{
+                                fontSize: 22,
+                                fontWeight: "bold"
+                            }}>{newsModel.title}</Text>
+
+                            <Text style={{
+                                marginTop: 20,
+                                textAlign: "justify"
+                            }}>{newsModel.description}</Text>
+
+                            {/* <Text style={{
+                                marginTop: 20,
+                                textAlign: "justify"
+                            }}>{newsModel.content}</Text> */}
                         </View>
                     </View>
+                </ScrollView>
 
-
-                    <Text>{newsModel.title}</Text>
-
-                    <Text>{newsModel.description}</Text>
-
-                    <TouchableOpacity
-                        onPress={() => {
-                            if (newsModel.url) {
-                                Linking.canOpenURL
-                            }
+                <TouchableOpacity
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        alignSelf: "flex-end",
+                        backgroundColor: "#EEE",
+                        borderRadius: 10,
+                        padding: 10,
+                        marginTop: 10,
+                        marginBottom: 20,
+                        marginRight: 20
+                    }}
+                    onPress={this.onPress_OpenLink.bind(this)}
+                >
+                    <Text
+                        style={{
+                            fontSize: 14,
+                            marginRight: 10
                         }}
-                    >
-                        <Icon
-                            name="external-link"
-                            type="font-awesome"
-                            size={16}
-                            color="#757575"
-                        />
-                    </TouchableOpacity>
+                    >{newsModel.sourceName}</Text>
+                    <Icon
+                        name="external-link"
+                        type="font-awesome"
+                        size={16}
+                        color="#757575"
+                    />
+                </TouchableOpacity>
 
-                </View>
             </SafeAreaView>
         );
     }

@@ -19,6 +19,7 @@ type StateDef = {
     title: string;
     imgUrl: string;
     publishDate: Date;
+    sourceName: string;
 };
 
 
@@ -41,7 +42,8 @@ export default class NewsListItem extends Component<Props, StateDef> {
         this.state = {
             title: props.newsModel.title,
             imgUrl: props.newsModel.urlToImage,
-            publishDate: props.newsModel.publishedAt
+            publishDate: props.newsModel.publishedAt,
+            sourceName: props.newsModel.sourceName
         };
     }
 
@@ -54,8 +56,42 @@ export default class NewsListItem extends Component<Props, StateDef> {
         }
     }
 
+
+    renderImage() {
+        const { imgUrl } = this.state;
+
+        if (!imgUrl) {
+
+            return (
+                <View style={{
+                    borderRadius: 5,
+                    backgroundColor: "#EEE",
+                    width: 100,
+                    height: 100
+                }}>
+
+                </View>
+            );
+        }
+
+        return (
+            <Image
+                style={{
+                    borderRadius: 5,
+                    width: 100,
+                    height: 100
+                }}
+                source={{
+                    uri: imgUrl,
+                    width: 100,
+                    height: 100
+                }}
+            />
+        );
+    }
+
     render() {
-        const { title, imgUrl } = this.state;
+        const { title } = this.state;
 
         return (
             <TouchableOpacity style={styles.constainer} onPress={this.onPress_NewsItem.bind(this)}>
@@ -81,18 +117,26 @@ export default class NewsListItem extends Component<Props, StateDef> {
                                 marginLeft: 5
                             }}
                         ></Moment>
+
+                        <Icon
+                            name="newspaper-o"
+                            type="font-awesome"
+                            size={16}
+                            color="#757575"
+                            containerStyle={{
+                                marginLeft: 10
+                            }}
+                        />
+                        <Text
+                            style={{
+                                fontSize: 12,
+                                marginLeft: 5
+                            }}
+                        >{this.state.sourceName}</Text>
                     </View>
                 </View>
-                <Image
-                    style={{
-                        borderRadius: 5
-                    }}
-                    source={{
-                        uri: imgUrl,
-                        width: 100,
-                        height: 100
-                    }}
-                />
+
+                {this.renderImage()}
             </TouchableOpacity>
         );
     }
