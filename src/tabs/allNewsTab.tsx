@@ -174,7 +174,7 @@ export default class AllNewsTab extends Component<Props, StateDef> {
                     data={this.state.news}
                     extraData={this.state}
                     keyExtractor={(item, index) => {
-                        return "" + item.title;
+                        return index + "_" + item.title;
                     }}
                     renderItem={this.renderItem_News.bind(this)}
 
